@@ -1,0 +1,9 @@
+.separate {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    content: "";
+    display: block;
+    background-color: var(--medium-gray);
+}

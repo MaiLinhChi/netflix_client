@@ -1,0 +1,83 @@
+.wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+    font-weight: 600;
+    font-family: var(--font-movie);
+    color: var(--white-color);
+    padding: 16px 34px;
+    user-select: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.wrapper + .wrapper {
+    margin-left: 16px;
+}
+
+.primary {
+    background-color: var(--primary-color);
+}
+
+.small {
+    height: 35px;
+    border-radius: 3px;
+    padding: 8px 18px;
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.large {
+    height: 72px;
+    font-size: 3.2rem;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 0 16px 0 26px;
+    font-weight: 400;
+    min-width: 230px;
+}
+
+.gray {
+    background-color: var(--gray);
+    color: var(--white-color);
+    opacity: 0.7;
+}
+
+.white {
+    background-color: var(--white-color);
+    color: var(--black-color);
+}
+
+.radius {
+    border-radius: 4px;
+}
+
+.left-icon, .right-icon {
+    display: inline-flex;
+    font-size: 3rem;
+}
+
+.left-icon {
+    margin-right: 10px;
+}
+
+.right-icon {
+    margin-left: 10px;
+}
+
+@media (max-width: 46.1875em) {
+    .wrapper {
+        font-size: 20px;
+    }
+    .large {
+        height: 40px;
+        padding: 6px 10px;
+        min-width: unset;
+        border-radius: 4px;
+    }
+
+    .left-icon, .right-icon {
+        font-size: 2rem;
+    }
+}

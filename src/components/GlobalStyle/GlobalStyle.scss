@@ -1,0 +1,98 @@
+@import 'normalize.css';
+
+:root {
+    // color
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --text-color: #fff;
+    --primary-color: #e50914;
+    --medium-gray: #8c8c8c;
+    --gray: #333;
+    --background-color: #181818;
+    --blue-color: #0071eb;
+
+    // font
+    --font-movie: "Helvetica Neue,sans-serif";
+    --font-netflix: "Netflix Sans,sans-serif";
+
+    // size
+    --spacer: 45px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+@font-face {
+    font-family: var(--font-movie);
+    src: url("/assets/fonts/Helvetica_Neue.woff");
+}
+
+@font-face {
+    font-family: var(--font-netflix);
+    src: url("/assets/fonts/NetflixSans_W_Md.woff2");
+    font-weight: 600;
+}
+
+// @font-face {
+//     font-family: "Netflix Sans";
+//     src: url("/assets/fonts/NetflixSans_W_Rg.woff2");
+//     font-weight: 500;
+// }
+
+body {
+    font-family: var(--font-movie);
+    font-size: 1.6rem;
+    text-rendering: optimizespeed;
+    color: var(--text-color);
+    overflow-x: hidden;
+    word-spacing: 0;
+}
+
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.one-side {
+    margin-right: 12px;
+}
+
+.two-side {
+    margin: 0 12px;
+}
+
+.one-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.two-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.three-line {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

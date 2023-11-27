@@ -1,0 +1,16 @@
+.home {
+    overflow: hidden;
+    background-color: var(--background-color);
+}
+
+.wrapper-lists {
+    padding-left: var(--spacer);
+    margin-top: 100px;
+}
+
+@media (max-width: 1366px) {
+    .wrapper-lists {
+        padding-left: 16px;
+        margin: 0;
+    }
+}
