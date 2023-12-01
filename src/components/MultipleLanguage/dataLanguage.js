@@ -8,6 +8,7 @@ export const dataLanguage = {
             placeholderEmail: 'Email address',
             btnRegister: 'Get Started',
             placeholderName: 'Full name',
+            placeholderPhone: 'Phone',
             placeholderPassword: 'Password',
             btnStart: 'Let Start',
         },

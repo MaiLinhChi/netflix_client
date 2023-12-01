@@ -1,7 +1,10 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
+console.log(Cookies.get('refresh_token'));
 
 const httpRequest = axios.create({
-    baseURL: 'https://netflix-api-gv40.onrender.com',
+    baseURL: 'https://netflix-api-adp1.onrender.com',
 });
 
 export const get = async (url, options = {}) => {

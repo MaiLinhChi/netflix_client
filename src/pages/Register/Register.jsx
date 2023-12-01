@@ -23,6 +23,7 @@ const Register = () => {
 
     const emailRef = useRef();
     const nameRef = useRef();
+    const phoneRef = useRef();
     const passwordRef = useRef();
 
     // Register
@@ -33,10 +34,10 @@ const Register = () => {
     const handleFinish = async (e) => {
         e.preventDefault();
         const name = nameRef.current.value;
+        const phone = phoneRef.current.value;
         const password = passwordRef.current.value;
-        register({ name, email, password }, dispatch, setLoading);
+        register({ name, email, phone, password }, dispatch, setLoading);
     };
-
     // Drop menu
     const handleClick = (index) => {
         if (index === isOpen) {
@@ -44,7 +45,6 @@ const Register = () => {
         }
         setIsOpen(index);
     };
-
     return (
         <div className={cx('register')}>
             <div className={cx('banner')}>
@@ -87,7 +87,15 @@ const Register = () => {
                                 placeholder=" "
                                 ref={nameRef}
                                 className={cx('custom-input')}
-                                gray
+                                borderRadius={'8px'}
+                            />
+                            <Input
+                                type="number"
+                                label={dataLanguage[language].header.placeholderPhone}
+                                placeholder=" "
+                                ref={phoneRef}
+                                className={cx('custom-input')}
+                                borderRadius={'8px'}
                             />
                             <Input
                                 type="password"
@@ -95,9 +103,9 @@ const Register = () => {
                                 placeholder=" "
                                 ref={passwordRef}
                                 className={cx('custom-input')}
-                                gray
+                                borderRadius={'8px'}
                             />
-                            <Button primary onClick={handleFinish}>
+                            <Button radius primary onClick={handleFinish}>
                                 {dataLanguage[language].header.btnStart}
                             </Button>
                         </form>

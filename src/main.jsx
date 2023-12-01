@@ -17,6 +17,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 </LoadingContextProvider>
             </AuthContextProvider>
         </GlobalStyle>
-        ,
     </React.StrictMode>,
 );

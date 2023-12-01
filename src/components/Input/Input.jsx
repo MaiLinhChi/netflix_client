@@ -5,9 +5,13 @@ import style from './Input.module.scss';
 
 const cx = classNames.bind(style);
 
-const Input = ({ label, placeholder, onChange, width, height, className, large, gray, white, ...passProps }, ref) => {
+const Input = (
+    { label, placeholder, onChange, width, height, className, large, gray, white, borderRadius, ...passProps },
+    ref,
+) => {
     const classes = cx('wrapper', {
         [className]: className,
+        borderRadius,
         large,
         gray,
         white,
@@ -15,6 +19,7 @@ const Input = ({ label, placeholder, onChange, width, height, className, large, 
     return (
         <div className={classes}>
             <input
+                style={{ borderRadius }}
                 placeholder={placeholder}
                 onChange={onChange}
                 width={width}
