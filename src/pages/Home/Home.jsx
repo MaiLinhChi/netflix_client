@@ -5,7 +5,7 @@ import style from './Home.module.scss';
 import Banner from '@/components/Banner';
 import MovieList from '@/components/MovieList';
 import * as listService from '@/services/lists';
-import { LoadingContext } from '@/contexts/LoadingContext';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 

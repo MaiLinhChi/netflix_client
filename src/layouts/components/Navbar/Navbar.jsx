@@ -7,8 +7,8 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import style from './Navbar.module.scss';
-import { logout } from '@/authContext/AuthActions';
-import { AuthContext } from '@/authContext/AuthContext';
+import { logout } from '@/contexts/auth/AuthAction';
+import { AuthContext } from '@/contexts/auth/AuthContext';
 import BoxShadow from '@/components/BoxShadow';
 import Search from '../Search';
 import { Logo, LogoMobile } from '@/components/Icon/Icon';

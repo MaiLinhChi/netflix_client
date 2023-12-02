@@ -39,7 +39,7 @@ const HoverVideo = ({ children, movie }) => {
                 <div className={cx('wrapper')} tabIndex="-1" {...attrs}>
                     <BoxShadow>
                         <div className={cx('wrapper-video')}>
-                            <video src={movie.trailer} muted={!sound} ref={videoRef}></video>
+                            {/* <video src={movie.trailer} muted={!sound} ref={videoRef}></video> */}
                             <div className={cx('icon-mute')} onClick={handleSound}>
                                 {sound ? <BsVolumeUpFill /> : <BsVolumeMute />}
                             </div>

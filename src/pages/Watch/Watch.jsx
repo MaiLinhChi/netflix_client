@@ -7,7 +7,7 @@ import style from './Watch.module.scss';
 import Separate from '@/components/Separate';
 import MovieList from '@/components/MovieList';
 import * as movieService from '@/services/movies';
-import { LoadingContext } from '@/contexts/LoadingContext';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 

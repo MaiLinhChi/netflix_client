@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-import { AuthContext } from './authContext/AuthContext';
+import { AuthContext } from './contexts/auth/AuthContext';
 import DefaultLayout from './layouts/DefaultLayout';
 import NotHeaderLayout from './layouts/NotHeaderLayout';
 import config from './config';
@@ -9,7 +9,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Watch from './pages/Watch';
-import { LoadingContext } from './contexts/LoadingContext';
+import { LoadingContext } from './contexts/loading/LoadingContext';
 import Loading from './components/Loading';
 
 function App() {

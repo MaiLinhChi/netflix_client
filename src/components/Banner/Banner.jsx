@@ -6,7 +6,7 @@ import style from './Banner.module.scss';
 import Button from '../Button';
 import * as movieService from '@/services/movies';
 import Separate from '../Separate';
-import { LoadingContext } from '@/contexts/LoadingContext';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 

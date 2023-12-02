@@ -8,9 +8,9 @@ import Button from '@/components/Button';
 import images from '@/assets/images';
 import videos from '@/assets/videos';
 import { dataLanguage, LanguageContext } from '@/components/MultipleLanguage';
-import { register } from '@/authContext/apiCalls';
-import { AuthContext } from '@/authContext/AuthContext';
-import { LoadingContext } from '@/contexts/LoadingContext';
+import { register } from '@/contexts/auth/AuthApi';
+import { AuthContext } from '@/contexts/auth/AuthContext';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 

@@ -7,9 +7,9 @@ import { Logo } from '@/components/Icon';
 import config from '@/config';
 import images from '@/assets/images';
 import Input from '@/components/Input';
-import { AuthContext } from '@/authContext/AuthContext';
-import { login } from '@/authContext/apiCalls';
-import { LoadingContext } from '@/contexts/LoadingContext';
+import { AuthContext } from '@/contexts/auth/AuthContext';
+import { login } from '@/contexts/auth/AuthApi';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 

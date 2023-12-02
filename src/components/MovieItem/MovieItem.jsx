@@ -8,7 +8,7 @@ import * as movieService from '@/services/movies';
 import HoverVideo from '../HoverVideo';
 import config from '@/config';
 import Separate from '../Separate';
-import { LoadingContext } from '@/contexts/LoadingContext';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 
