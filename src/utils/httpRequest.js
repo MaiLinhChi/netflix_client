@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 const httpRequest = axios.create({
-    baseURL: 'https://netflix-api-adp1.onrender.com',
+    withCredentials: true,
+    headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+    credentials: 'include',
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 export const get = async (url, options = {}) => {
