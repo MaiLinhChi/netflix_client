@@ -36,7 +36,8 @@
         color: var(--medium-gray);
         font-size: 1.6rem;
 
-        .wrapper-year, .wrapper-limit {
+        .wrapper-year,
+        .wrapper-limit {
             position: relative;
         }
 
@@ -57,7 +58,8 @@
         display: flex;
         margin-bottom: 16px;
 
-        .comment-icon, .share-icon {
+        .comment-icon,
+        .share-icon {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -74,7 +76,8 @@
         }
     }
 
-    .actor, .genre {
+    .actor,
+    .genre {
         font-size: 1.6rem;
 
         label {
@@ -102,7 +105,7 @@
     padding: 50px var(--spacer);
 
     .label {
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
 }
 
@@ -110,6 +113,7 @@
     display: flex;
     align-items: center;
     max-width: 1000px;
+    gap: 10px;
 
     textarea {
         width: 100%;
@@ -130,9 +134,12 @@
 }
 
 .comment-list {
+    display: flex;
+    flex-direction: column;
     list-style: none;
     max-width: 1000px;
     margin-top: 50px;
+    row-gap: 24px;
 
     .comment-item {
         display: flex;
@@ -213,12 +220,12 @@
         .image-title {
             width: 40%;
         }
-    
+
         .title {
             font-size: 2rem;
             margin: 12px 0;
         }
-    
+
         .detail {
             margin-bottom: 12px;
             font-size: 1.4rem;
@@ -230,21 +237,23 @@
 
         .action-icon {
             margin-bottom: 12px;
-    
-            .comment-icon, .share-icon {
+
+            .comment-icon,
+            .share-icon {
                 font-size: 1.2rem;
-    
+
                 svg {
                     font-size: 2rem;
                 }
             }
-    
+
             .share-icon {
                 margin-left: 20px;
             }
         }
-    
-        .actor, .genre {
+
+        .actor,
+        .genre {
             font-size: 1.4rem;
         }
     }

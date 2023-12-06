@@ -19,6 +19,10 @@ export const loginFailure = () => ({
 });
 
 // Logout
-export const logout = () => ({
-    type: 'LOGOUT',
+export const logoutSuccess = () => ({
+    type: 'LOGOUT_SUCCESS',
+});
+
+export const logoutFailure = () => ({
+    type: 'LOGOUT_FAILURE',
 });

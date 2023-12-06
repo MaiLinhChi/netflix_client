@@ -6,7 +6,6 @@ import { AiFillCaretRight } from 'react-icons/ai';
 import style from './MovieItem.module.scss';
 import * as movieService from '@/services/movies';
 import HoverVideo from '../HoverVideo';
-import config from '@/config';
 import Separate from '../Separate';
 import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
@@ -38,7 +37,7 @@ const MovieItem = ({ item }) => {
         <li className={cx('movie-item')}>
             {typeof item === 'object' ? (
                 <>
-                    <Link to={config.routes.watch} state={movie} className={cx('link-movie')}>
+                    <Link to={`/movie/watch/${movie._id}`} className={cx('link-movie')}>
                         <img src={movie.imageSmall} alt={movie.title} className={cx('image')} />
                         <div className={cx('play-icon')}>
                             <AiFillCaretRight />
@@ -58,7 +57,7 @@ const MovieItem = ({ item }) => {
                 </>
             ) : (
                 <HoverVideo movie={movie}>
-                    <Link to={config.routes.watch} state={movie} className={cx('link-movie')}>
+                    <Link to={`/movie/watch/${movie._id}`} state={movie} className={cx('link-movie')}>
                         <img src={movie.imageSmall} alt={movie.title} className={cx('image')} />
                     </Link>
                 </HoverVideo>

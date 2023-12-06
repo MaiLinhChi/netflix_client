@@ -4,7 +4,7 @@ const routes = {
     login: '/login',
     movies: '/movies',
     series: '/series',
-    watch: '/watch',
+    watch: '/movie/watch/:id',
 };
 
 export default routes;

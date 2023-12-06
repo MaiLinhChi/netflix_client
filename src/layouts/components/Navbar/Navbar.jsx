@@ -7,7 +7,6 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import style from './Navbar.module.scss';
-import { logout } from '@/contexts/auth/AuthAction';
 import { AuthContext } from '@/contexts/auth/AuthContext';
 import BoxShadow from '@/components/BoxShadow';
 import Search from '../Search';
@@ -15,6 +14,9 @@ import { Logo, LogoMobile } from '@/components/Icon/Icon';
 import Button from '@/components/Button';
 import config from '@/config';
 import { LanguageContext, dataLanguage } from '@/components/MultipleLanguage';
+import { clearAuthData, getLocalStorage } from '@/utils/function';
+import { logout } from '@/contexts/auth/AuthApi';
+import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 
@@ -22,8 +24,8 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [show, setShow] = useState(false);
     const searchRef = useRef();
-    const { dispatch } = useContext(AuthContext);
-    const { user } = useContext(AuthContext);
+    const { setLoading } = useContext(LoadingContext);
+    const { user, dispatch } = useContext(AuthContext);
     const { language, setLanguage } = useContext(LanguageContext);
 
     window.onscroll = () => {
@@ -40,6 +42,12 @@ const Navbar = () => {
     const handleToggleSearch = (e) => {
         e.stopPropagation();
         setShow(!show);
+    };
+
+    const handleLogout = async () => {
+        const refreshToken = getLocalStorage('refresh_token');
+        await logout(refreshToken, dispatch, setLoading);
+        clearAuthData();
     };
 
     window.onclick = () => {
@@ -93,7 +101,7 @@ const Navbar = () => {
                                         <span>Account</span>
                                         <span>Helper center</span>
                                         <span>Settings</span>
-                                        <span onClick={() => dispatch(logout())}>Log out</span>
+                                        <span onClick={handleLogout}>Log out</span>
                                     </div>
                                 </BoxShadow>
                             )}

@@ -1,33 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
 import classNames from 'classnames/bind';
 import { AiFillCaretRight, AiOutlineInfoCircle } from 'react-icons/ai';
 
 import style from './Banner.module.scss';
 import Button from '../Button';
-import * as movieService from '@/services/movies';
 import Separate from '../Separate';
-import { LoadingContext } from '@/contexts/loading/LoadingContext';
 
 const cx = classNames.bind(style);
 
-const Banner = ({ type, setGenre }) => {
-    const [movie, setMovie] = useState({});
-    const { setLoading } = useContext(LoadingContext);
-    useEffect(() => {
-        const getRandomContent = async () => {
-            try {
-                setLoading(true);
-                const res = await movieService.getRandom(type);
-                setMovie(res);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-                setLoading(false);
-            }
-        };
-        getRandomContent();
-    }, [type, setLoading]);
-
+const Banner = ({ type, setGenre, movie }) => {
     return (
         <div className={cx('banner')}>
             <div className={cx('wrapper-image')}>
@@ -64,7 +44,7 @@ const Banner = ({ type, setGenre }) => {
                     {movie.starring && movie.starring.join(', ')}
                 </span>
                 <div className={cx('wrapper-btn')}>
-                    <Button white radius to="/watch" state={movie} leftIcon={<AiFillCaretRight />}>
+                    <Button white radius to={`/movie/watch/${movie._id}`} leftIcon={<AiFillCaretRight />}>
                         Play
                     </Button>
                     <Button gray radius leftIcon={<AiOutlineInfoCircle />}>

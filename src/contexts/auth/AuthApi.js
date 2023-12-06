@@ -1,5 +1,12 @@
 import * as authService from '@/services/auth';
-import { loginFailure, loginSuccess, registerFailure, registerSuccess } from './AuthAction';
+import {
+    loginFailure,
+    loginSuccess,
+    logoutFailure,
+    logoutSuccess,
+    registerFailure,
+    registerSuccess,
+} from './AuthAction';
 
 export const register = async (user, dispatch, setLoading) => {
     try {
@@ -21,6 +28,18 @@ export const login = async (user, dispatch, setLoading) => {
         setLoading(false);
     } catch (error) {
         dispatch(loginFailure);
+        setLoading(false);
+    }
+};
+
+export const logout = async (refreshToken, dispatch, setLoading) => {
+    try {
+        setLoading(true);
+        await authService.logout({ refreshToken });
+        dispatch(logoutSuccess());
+        setLoading(false);
+    } catch (error) {
+        dispatch(logoutFailure);
         setLoading(false);
     }
 };

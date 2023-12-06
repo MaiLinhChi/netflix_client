@@ -1,88 +1,58 @@
-import { useContext } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { AuthContext } from './contexts/auth/AuthContext';
-import DefaultLayout from './layouts/DefaultLayout';
-import NotHeaderLayout from './layouts/NotHeaderLayout';
-import config from './config';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Watch from './pages/Watch';
 import { LoadingContext } from './contexts/loading/LoadingContext';
 import Loading from './components/Loading';
+import ProtectedRoute from './routes/ProtectedRoute';
+import PublicRoute from './routes/PublicRoute';
+import { privateRoutes, publicRoutes } from './routes';
 
 function App() {
-    const { user } = useContext(AuthContext);
     const { loading } = useContext(LoadingContext);
     return (
         <Router>
             {loading && <Loading />}
             <Routes>
-                <Route
-                    path={config.routes.register}
-                    element={
-                        !user ? (
-                            <DefaultLayout>
-                                <Register />
-                            </DefaultLayout>
-                        ) : (
-                            <Navigate to={config.routes.home} />
-                        )
+                {publicRoutes.map((routeConfig, index) => {
+                    let Layout = React.Fragment;
+                    if (routeConfig) {
+                        Layout = routeConfig.layout;
                     }
-                />
-                <Route
-                    path={config.routes.login}
-                    element={
-                        !user ? (
-                            <NotHeaderLayout>
-                                <Login />
-                            </NotHeaderLayout>
-                        ) : (
-                            <Navigate to={config.routes.home} />
-                        )
-                    }
-                />
-                <Route
-                    path={config.routes.home}
-                    element={
-                        !user ? (
-                            <Navigate to={config.routes.register} />
-                        ) : (
-                            <DefaultLayout>
-                                <Home type="movies" />
-                            </DefaultLayout>
-                        )
-                    }
-                />
-                {user && (
-                    <>
+                    const Component = routeConfig.component;
+                    return (
                         <Route
-                            path={config.routes.movies}
+                            path={routeConfig.path}
+                            key={index}
                             element={
-                                <DefaultLayout>
-                                    <Home type="movies" />
-                                </DefaultLayout>
+                                <PublicRoute>
+                                    <Layout>
+                                        <Component />
+                                    </Layout>
+                                </PublicRoute>
                             }
                         />
+                    );
+                })}
+                {privateRoutes.map((routeConfig, index) => {
+                    let Layout = React.Fragment;
+                    if (routeConfig.layout) {
+                        Layout = routeConfig.layout;
+                    }
+                    const Component = routeConfig.component;
+                    return (
                         <Route
-                            path={config.routes.series}
+                            path={routeConfig.path}
+                            key={index}
                             element={
-                                <DefaultLayout>
-                                    <Home type="series" />
-                                </DefaultLayout>
+                                <ProtectedRoute>
+                                    <Layout>
+                                        <Component {...routeConfig.props} />
+                                    </Layout>
+                                </ProtectedRoute>
                             }
                         />
-                        <Route
-                            path={config.routes.watch}
-                            element={
-                                <NotHeaderLayout>
-                                    <Watch />
-                                </NotHeaderLayout>
-                            }
-                        />
-                    </>
-                )}
+                    );
+                })}
             </Routes>
         </Router>
     );

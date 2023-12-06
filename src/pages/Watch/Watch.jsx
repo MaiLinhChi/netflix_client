@@ -1,39 +1,74 @@
-import { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { BsChatLeftText, BsFillShareFill } from 'react-icons/bs';
+import moment from 'moment';
 
 import style from './Watch.module.scss';
 import Separate from '@/components/Separate';
 import MovieList from '@/components/MovieList';
 import * as movieService from '@/services/movies';
+import * as commentService from '@/services/comments';
 import { LoadingContext } from '@/contexts/loading/LoadingContext';
+import { AuthContext } from '@/contexts/auth/AuthContext';
+import { useParams } from 'react-router-dom';
+import Button from '@/components/Button';
 
 const cx = classNames.bind(style);
 
 const Watch = () => {
     const [suggesteds, setSuggesteds] = useState([]);
-    const location = useLocation();
-    const movie = location.state;
+    const [comments, setComments] = useState([]);
+    const [commentString, setCommentString] = useState([]);
+    const [movie, setMovie] = useState({});
+    const refComment = useRef();
+    const { id } = useParams();
+    const { user } = useContext(AuthContext);
     const { setLoading } = useContext(LoadingContext);
-    useEffect(() => {
-        try {
-            const getMovieSuggesteds = async () => {
-                setLoading(true);
-                const type = movie.type;
-                const genre = movie.genre.toString();
-                const id = movie._id;
 
-                const res = await movieService.getSuggest(type, genre, id);
-                setSuggesteds(res);
-                setLoading(false);
-            };
-            getMovieSuggesteds();
+    const getCommentOfMovie = useCallback(async () => {
+        const commentsRes = await commentService.getCommentOfMovie({ movieId: id });
+        setComments(commentsRes);
+    }, [id]);
+
+    const PostComment = async () => {
+        try {
+            const comment = refComment.current.value.trim();
+            if (!comment) return;
+            setCommentString(comment);
+            // post comment
+            setLoading(true);
+            await commentService.storeComment({
+                comment,
+                userId: user._id,
+                movieId: movie._id,
+            });
+            await getCommentOfMovie();
+            setCommentString('');
+            setLoading(false);
         } catch (error) {
             console.log(error);
             setLoading(false);
         }
-    }, [movie, setLoading]);
+    };
+
+    useEffect(() => {
+        (async () => {
+            try {
+                setLoading(true);
+                const movieById = await movieService.getById(id);
+                const type = movieById.type;
+                const genre = movieById.genre?.toString();
+                const movieSuggest = await movieService.getSuggest(type, genre, id);
+                await getCommentOfMovie();
+                setMovie(movieById);
+                setSuggesteds(movieSuggest);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+                setLoading(false);
+            }
+        })();
+    }, [setLoading, id, getCommentOfMovie]);
 
     return (
         <div className={cx('watch')}>
@@ -70,11 +105,11 @@ const Watch = () => {
                     </div>
                     <div className={cx('actor')}>
                         <label>Actor: </label>
-                        <span>{movie.starring.join(', ')}</span>
+                        <span>{movie?.starring?.join(', ')}</span>
                     </div>
                     <div className={cx('genre')}>
                         <label>Genre: </label>
-                        <span>{movie.genre.join(', ')}</span>
+                        <span>{movie?.genre?.join(', ')}</span>
                     </div>
                 </div>
             </div>
@@ -85,28 +120,31 @@ const Watch = () => {
             <div className={cx('wrapper-comment')}>
                 <h4 className={cx('label')}>Comment</h4>
                 <div className={cx('wrapper-input')}>
-                    <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToSSs5QsGJBJVdoqltB52gdyPjaDao3xDmwA&usqp=CAU"
-                        alt=""
-                        className={cx('img')}
+                    <img src={user.profilePicture} alt="" className={cx('img')} />
+                    <textarea
+                        type="text"
+                        placeholder="Add comment..."
+                        ref={refComment}
+                        value={commentString}
+                        onChange={(e) => setCommentString(e.target.value)}
                     />
-                    <textarea type="text" placeholder="Add comment..." />
+                    <Button radius small white onClick={PostComment}>
+                        Post
+                    </Button>
                 </div>
                 <ul className={cx('comment-list')}>
-                    <li className={cx('comment-item')}>
-                        <img
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToSSs5QsGJBJVdoqltB52gdyPjaDao3xDmwA&usqp=CAU"
-                            alt="linhchi"
-                            className={cx('img')}
-                        />
-                        <div className={cx('user')}>
-                            <h4>Linh Chi</h4>
-                            <p>Good movie</p>
-                        </div>
-                        <div className={cx('time')}>
-                            <span>monday</span>
-                        </div>
-                    </li>
+                    {comments.map((item, index) => (
+                        <li className={cx('comment-item')} key={index}>
+                            <img src={item.userId.profilePicture} alt="avatar" className={cx('img')} />
+                            <div className={cx('user')}>
+                                <h4>{item.userId.name}</h4>
+                                <p style={{ marginTop: 6 }}>{item.comment}</p>
+                            </div>
+                            <div className={cx('time')}>
+                                <span>{moment(item.createdAt).format('dddd, MMMM Do YYYY, h:mm:ss a').toString()}</span>
+                            </div>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </div>
