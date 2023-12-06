@@ -12,9 +12,10 @@ export const register = async (user, dispatch, setLoading) => {
     try {
         setLoading(true);
         const res = await authService.register(user);
-        dispatch(registerSuccess(res.data));
+        dispatch(registerSuccess(res?.data));
         setLoading(false);
     } catch (error) {
+        alert(error);
         dispatch(registerFailure);
         setLoading(false);
     }

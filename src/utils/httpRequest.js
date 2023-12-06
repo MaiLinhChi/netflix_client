@@ -56,6 +56,7 @@ httpRequest.interceptors.response.use(
                 redirectToLogin();
             }
         }
+        alert(error.message);
         return Promise.reject(error);
     },
 );
