@@ -29,14 +29,15 @@ httpRequest.interceptors.response.use(
     },
     async (error) => {
         const originalRequest = error.config;
-        const refresh_token = getLocalStorage('refresh_token');
-        if (!refresh_token) {
-            clearAuthData();
-            redirectToLogin();
-        }
 
         if (error?.response?.status === 401 || (error?.response?.status === 403 && !originalRequest._retry)) {
             originalRequest._retry = true;
+
+            const refresh_token = getLocalStorage('refresh_token');
+            if (!refresh_token) {
+                clearAuthData();
+                redirectToLogin();
+            }
             try {
                 // call api refresh token
                 const { data } = await Post('/auth/refresh_token', {

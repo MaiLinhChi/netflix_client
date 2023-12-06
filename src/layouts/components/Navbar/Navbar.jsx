@@ -25,6 +25,7 @@ const Navbar = () => {
     const [show, setShow] = useState(false);
     const searchRef = useRef();
     const { setLoading } = useContext(LoadingContext);
+    const accessToken = getLocalStorage('access_token');
     const { user, dispatch } = useContext(AuthContext);
     const { language, setLanguage } = useContext(LanguageContext);
 
@@ -65,7 +66,7 @@ const Navbar = () => {
                     <Logo className={cx('logo')} />
                     <LogoMobile className={cx('logo-mobile')} />
                 </Link>
-                {user && (
+                {accessToken && (
                     <>
                         <Link to="/movies" className={cx('item-user')}>
                             <span>Movies</span>
@@ -78,7 +79,7 @@ const Navbar = () => {
                 )}
             </div>
             <div className={cx('right')}>
-                {user ? (
+                {accessToken ? (
                     <>
                         <span className={cx('search-icon')}>
                             {!show && (
