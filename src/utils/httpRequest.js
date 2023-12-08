@@ -9,7 +9,7 @@ const httpRequest = axios.create({
 httpRequest.interceptors.request.use(
     (config) => {
         const access_token = getLocalStorage('access_token');
-        config.headers['Authorization'] = `Bearer ${access_token}`;
+        config.headers.token = `Bearer ${access_token}`;
         return config;
     },
     (error) => {
@@ -45,7 +45,7 @@ httpRequest.interceptors.response.use(
                 });
                 const { newAccessToken, newRefreshToken } = data;
                 // set new access token
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                originalRequest.headers.token = `Bearer ${newAccessToken}`;
                 // save local
                 setLocalStorage('access_token', newAccessToken);
                 setLocalStorage('refresh_token', newRefreshToken);
